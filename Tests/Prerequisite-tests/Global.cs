@@ -1,4 +1,4 @@
-namespace IntegrationTests
+namespace PrerequisiteTests
 {
 	public static class Global { }
 }
