@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Project.IO.Extensions;
 
 namespace PrerequisiteTests.IO.Extensions
@@ -14,6 +15,19 @@ namespace PrerequisiteTests.IO.Extensions
 			Assert.False(PathExtension.IsPathFullyQualified("test"));
 			Assert.False(PathExtension.IsPathFullyQualified("test/"));
 			Assert.False(PathExtension.IsPathFullyQualified("test.txt"));
+
+			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				Assert.False(PathExtension.IsPathFullyQualified("/test"));
+				Assert.False(PathExtension.IsPathFullyQualified("/test/"));
+				Assert.False(PathExtension.IsPathFullyQualified("/test.txt"));
+			}
+			else
+			{
+				Assert.True(PathExtension.IsPathFullyQualified("/test"));
+				Assert.True(PathExtension.IsPathFullyQualified("/test/"));
+				Assert.True(PathExtension.IsPathFullyQualified("/test.txt"));
+			}
 		}
 
 		#endregion

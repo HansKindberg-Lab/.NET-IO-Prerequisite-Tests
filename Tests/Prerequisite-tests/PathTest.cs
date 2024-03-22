@@ -27,6 +27,19 @@ namespace PrerequisiteTests
 			Assert.False(Path.IsPathFullyQualified("test"));
 			Assert.False(Path.IsPathFullyQualified("test/"));
 			Assert.False(Path.IsPathFullyQualified("test.txt"));
+
+			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				Assert.False(Path.IsPathFullyQualified("/test"));
+				Assert.False(Path.IsPathFullyQualified("/test/"));
+				Assert.False(Path.IsPathFullyQualified("/test.txt"));
+			}
+			else
+			{
+				Assert.True(Path.IsPathFullyQualified("/test"));
+				Assert.True(Path.IsPathFullyQualified("/test/"));
+				Assert.True(Path.IsPathFullyQualified("/test.txt"));
+			}
 		}
 #endif
 
