@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{FD8DDC4B-68AC-4675-A2D3-FDD0B7D08F90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{913B5D56-A57F-42BC-9210-821B928A3C95}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\Build-and-test.yml = .github\workflows\Build-and-test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{CA7C45FD-B87F-46EF-91BF-F0460D01236E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		NuGet.config = NuGet.config
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{88A7D118-3A8A-47EC-A774-816F8EA8F308}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\.editorconfig = Tests\.editorconfig
+		Tests\Directory.Build.props = Tests\Directory.Build.props
+		Tests\Directory.Build.targets = Tests\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prerequisite-tests", "Tests\Prerequisite-tests\Prerequisite-tests.csproj", "{07080CC1-41E6-4BEC-AB97-0BA14C2636B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07080CC1-41E6-4BEC-AB97-0BA14C2636B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07080CC1-41E6-4BEC-AB97-0BA14C2636B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07080CC1-41E6-4BEC-AB97-0BA14C2636B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07080CC1-41E6-4BEC-AB97-0BA14C2636B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB4F7FF3-2E06-4F5B-BE6F-46DADFE0A96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB4F7FF3-2E06-4F5B-BE6F-46DADFE0A96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB4F7FF3-2E06-4F5B-BE6F-46DADFE0A96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB4F7FF3-2E06-4F5B-BE6F-46DADFE0A96B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07080CC1-41E6-4BEC-AB97-0BA14C2636B8} = {88A7D118-3A8A-47EC-A774-816F8EA8F308}
+		{FB4F7FF3-2E06-4F5B-BE6F-46DADFE0A96B} = {88A7D118-3A8A-47EC-A774-816F8EA8F308}
+		{913B5D56-A57F-42BC-9210-821B928A3C95} = {FD8DDC4B-68AC-4675-A2D3-FDD0B7D08F90}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D69BBEC0-CDAC-4103-AEAF-9A7C36C47708}
+	EndGlobalSection
+EndGlobal
