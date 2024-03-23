@@ -9,6 +9,18 @@ namespace PrerequisiteTests.IO.Extensions
 		#region Methods
 
 		[Fact]
+		public async Task EnsureTrailingDirectorySeparator_IfThePathDoesNotEndWithADirectorySeparator_ShouldReturnAPathWithATrailingDirectorySeparator()
+		{
+			await Task.CompletedTask;
+
+			var path = "Some-directory";
+
+			var expected = $"{path}{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"\" : "/")}";
+
+			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
+		}
+
+		[Fact]
 		public async Task IsPathFullyQualified_Test()
 		{
 			await Task.CompletedTask;

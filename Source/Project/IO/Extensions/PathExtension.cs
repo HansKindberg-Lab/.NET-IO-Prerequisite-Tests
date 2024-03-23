@@ -12,6 +12,17 @@ namespace Project.IO.Extensions
 	{
 		#region Methods
 
+		public static string EnsureTrailingDirectorySeparator(string path)
+		{
+			if(path == null)
+				throw new ArgumentNullException(nameof(path));
+
+			if(path.EndsWith(Path.AltDirectorySeparatorChar.ToString()) || path.EndsWith(Path.DirectorySeparatorChar.ToString()))
+				return path;
+
+			return $"{path}{Path.DirectorySeparatorChar}";
+		}
+
 		private static bool IsDirectorySeparator(char character)
 		{
 			return character == Path.DirectorySeparatorChar || character == Path.AltDirectorySeparatorChar;
