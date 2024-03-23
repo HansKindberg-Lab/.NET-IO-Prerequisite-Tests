@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using Project.IO.Extensions;
+using Xunit;
 
 namespace PrerequisiteTests.IO.Extensions
 {

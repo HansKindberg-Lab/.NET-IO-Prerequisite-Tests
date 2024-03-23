@@ -36,7 +36,7 @@ namespace Project.IO.Extensions
 
 				// The only way to specify a fixed path that doesn't begin with two slashes is the drive, colon, slash format- i.e. C:\
 				// To match old behavior we'll check the drive character for validity as the path is technically // not qualified if you don't have a valid drive. "=:\" is the "=" file's default data stream.
-				return !(path.Length >= 3 && path[1] == Path.VolumeSeparatorChar && IsDirectorySeparator(path[2]) && IsValidDriveChar(path[0]));
+				return !(path.Length >= 3 && path[1] == Path.VolumeSeparatorChar && IsDirectorySeparator(path[2]) && IsValidDriveCharacter(path[0]));
 			}
 
 			// https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/IO/PathInternal.Unix.cs#L77
@@ -50,7 +50,7 @@ namespace Project.IO.Extensions
 			return path == null ? throw new ArgumentNullException(nameof(path)) : !IsPartiallyQualified(path);
 		}
 
-		private static bool IsValidDriveChar(char character)
+		private static bool IsValidDriveCharacter(char character)
 		{
 			return (uint)((character | 0x20) - 'a') <= 'z' - 'a';
 		}
