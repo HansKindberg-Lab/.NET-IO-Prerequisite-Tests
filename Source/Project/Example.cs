@@ -14,7 +14,7 @@ namespace Project
 			return string.Equals(this.NormalizePath(firstPath), this.NormalizePath(secondPath), StringComparison.OrdinalIgnoreCase);
 		}
 
-		protected internal virtual void ValidateFilePath(string? directoryPath, string? filePath)
+		public virtual void ValidateFilePath(string? action, string? directoryPath, string? filePath)
 		{
 			if(string.IsNullOrWhiteSpace(filePath))
 				return;
@@ -35,12 +35,12 @@ namespace Project
 				throw new ArgumentException($"Could not create an absolute uri from directory-path \"{directoryPath}\".", nameof(directoryPath));
 
 			if(this.PathsAreEqual(directoryPath, filePath))
-				throw new InvalidOperationException($"The directory-path and file-path can not be equal.");
+				throw new InvalidOperationException("The directory-path and file-path can not be equal.");
 
 			// We are not allowed to delete files outside the directory-path.
 			// We can not transform files outside the directory-path because we can not resolve the destination for those files.
 			if(!directoryUri.IsBaseOf(fileUri))
-				throw new InvalidOperationException($"The file \"{filePath}\" is outside the directory-path \"{directoryPath}\".");
+				throw new InvalidOperationException($"It is not allowed to {action} the file \"{filePath}\". The file is outside the directory-path \"{directoryPath}\".");
 		}
 
 		#endregion
