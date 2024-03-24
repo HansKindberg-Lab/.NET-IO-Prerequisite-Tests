@@ -28,6 +28,11 @@ namespace Project.IO.Extensions
 			return character == Path.DirectorySeparatorChar || character == Path.AltDirectorySeparatorChar;
 		}
 
+		/// <summary>
+		/// - https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/IO/PathInternal.cs
+		/// - https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/IO/PathInternal.Unix.cs
+		/// - https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/IO/PathInternal.Windows.cs
+		/// </summary>
 		private static bool IsPartiallyQualified(string path)
 		{
 			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -56,6 +61,9 @@ namespace Project.IO.Extensions
 			return !Path.IsPathRooted(path);
 		}
 
+		/// <summary>
+		/// - https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/IO/Path.cs#L304
+		/// </summary>
 		public static bool IsPathFullyQualified(string path)
 		{
 			return path == null ? throw new ArgumentNullException(nameof(path)) : !IsPartiallyQualified(path);

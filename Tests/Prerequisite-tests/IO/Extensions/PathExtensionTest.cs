@@ -13,16 +13,18 @@ namespace PrerequisiteTests.IO.Extensions
 		{
 			await Task.CompletedTask;
 
-			var path = "Some-directory";
-			var expected = $"{path}{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"\" : "/")}";
+			const string directoryName = "Some-directory";
+
+			var path = directoryName;
+			var expected = $"{directoryName}{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"\" : "/")}";
 			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
 
-			path = "Some-directory/";
+			path = $"{directoryName}/";
 			expected = path;
 			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
 
-			path = "Some-directory\\";
-			expected = path;
+			path = $"{directoryName}\\";
+			expected = $"{directoryName}{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"\" : @"\/")}";
 			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
 		}
 
