@@ -42,6 +42,15 @@ namespace PrerequisiteTests.IO.Extensions
 				Assert.False(PathExtension.IsPathFullyQualified("/test"));
 				Assert.False(PathExtension.IsPathFullyQualified("/test/"));
 				Assert.False(PathExtension.IsPathFullyQualified("/test.txt"));
+				Assert.False(PathExtension.IsPathFullyQualified(@"\test"));
+				Assert.False(PathExtension.IsPathFullyQualified(@"\test\"));
+				Assert.False(PathExtension.IsPathFullyQualified(@"\test.txt"));
+				Assert.True(PathExtension.IsPathFullyQualified("C:/test"));
+				Assert.True(PathExtension.IsPathFullyQualified("C:/test/"));
+				Assert.True(PathExtension.IsPathFullyQualified("C:/test.txt"));
+				Assert.True(PathExtension.IsPathFullyQualified(@"C:\test"));
+				Assert.True(PathExtension.IsPathFullyQualified(@"C:\test\"));
+				Assert.True(PathExtension.IsPathFullyQualified(@"C:\test.txt"));
 			}
 			else
 			{
