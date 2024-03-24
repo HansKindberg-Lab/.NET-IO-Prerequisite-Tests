@@ -14,9 +14,15 @@ namespace PrerequisiteTests.IO.Extensions
 			await Task.CompletedTask;
 
 			var path = "Some-directory";
-
 			var expected = $"{path}{(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"\" : "/")}";
+			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
 
+			path = "Some-directory/";
+			expected = path;
+			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
+
+			path = "Some-directory\\";
+			expected = path;
 			Assert.Equal(expected, PathExtension.EnsureTrailingDirectorySeparator(path));
 		}
 

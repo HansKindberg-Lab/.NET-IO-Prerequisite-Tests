@@ -5,11 +5,11 @@ using Project;
 namespace PrerequisiteTests
 {
 	[TestClass]
-	public class ExampleTest
+	public class PackageTransformerTest
 	{
 		#region Properties
 
-		protected internal virtual Example Example => new();
+		protected internal virtual PackageTransformer PackageTransformer => new();
 
 		#endregion
 
@@ -20,12 +20,12 @@ namespace PrerequisiteTests
 		{
 			await Task.CompletedTask;
 
-			this.Example.ValidateFilePath(null, null, null);
+			this.PackageTransformer.ValidateFilePath(null, null, null);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidOperationException))]
-		public void ValidateFilePath_IfTheDirectoryIsNotABaseOfTheFile_ShouldThrowAnInvalidOperationException()
+		public void ValidateFilePath_IfTheDirectoryIsNotAnAncestorOfTheFile_ShouldThrowAnInvalidOperationException()
 		{
 			const string action = "test";
 			var directoryPaths = new List<string>();
@@ -49,7 +49,7 @@ namespace PrerequisiteTests
 				{
 					try
 					{
-						this.Example.ValidateFilePath(action, directoryPath, filePath);
+						this.PackageTransformer.ValidateFilePath(action, directoryPath, filePath);
 					}
 					catch(InvalidOperationException invalidOperationException)
 					{
@@ -61,6 +61,21 @@ namespace PrerequisiteTests
 
 			if(exceptions.Count == 6)
 				throw exceptions.First();
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void ValidateFilePath_IfTheDirectoryPathIsNull_And_IfTheFilePathIsAbsolute_ShouldThrowAnArgumentNullException()
+		{
+			try
+			{
+				this.PackageTransformer.ValidateFilePath("Test", null, RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"C:\Test.txt" : "/Test.txt");
+			}
+			catch(ArgumentNullException argumentNullException)
+			{
+				if(argumentNullException.ParamName!.Equals("directoryPath", StringComparison.Ordinal))
+					throw;
+			}
 		}
 
 		[TestMethod]
@@ -87,34 +102,17 @@ namespace PrerequisiteTests
 			{
 				try
 				{
-					this.Example.ValidateFilePath("Test", directoryPath, filePath);
+					this.PackageTransformer.ValidateFilePath("Test", directoryPath, filePath);
 				}
 				catch(ArgumentException argumentException)
 				{
-					if(string.Equals(argumentException.ParamName, nameof(directoryPath), StringComparison.Ordinal) && argumentException.Message.StartsWith($"Could not create an absolute uri from directory-path \"{directoryPath}\".", StringComparison.Ordinal))
+					if(string.Equals(argumentException.ParamName, nameof(directoryPath), StringComparison.Ordinal) && argumentException.Message.StartsWith($"The directory-path can not be relative ({directoryPath}).", StringComparison.Ordinal))
 						exceptions.Add(argumentException);
 				}
 			}
 
 			if(exceptions.Count == expectedNumberOfExceptions)
 				throw exceptions.First();
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
-		public void ValidateFilePath_IfTheDirectoryPathParameterAndTheFilePathParameterAreEqual_ShouldThrowAnInvalidOperationException()
-		{
-			var directoryPath = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"C:\Some-directory" : "/Some-directory";
-
-			try
-			{
-				this.Example.ValidateFilePath("Test", directoryPath, directoryPath);
-			}
-			catch(InvalidOperationException invalidOperationException)
-			{
-				if(string.Equals(invalidOperationException.Message, "The directory-path and file-path can not be equal.", StringComparison.Ordinal))
-					throw;
-			}
 		}
 
 		[TestMethod]
@@ -159,17 +157,17 @@ namespace PrerequisiteTests
 		{
 			await Task.CompletedTask;
 
-			this.Example.ValidateFilePath(null, null, filePath);
-			this.Example.ValidateFilePath(null, string.Empty, filePath);
-			this.Example.ValidateFilePath(string.Empty, null, filePath);
-			this.Example.ValidateFilePath(string.Empty, string.Empty, filePath);
-			this.Example.ValidateFilePath(null, "Test", filePath);
-			this.Example.ValidateFilePath("Test", null, filePath);
-			this.Example.ValidateFilePath("Test", "Test", filePath);
+			this.PackageTransformer.ValidateFilePath(null, null, filePath);
+			this.PackageTransformer.ValidateFilePath(null, string.Empty, filePath);
+			this.PackageTransformer.ValidateFilePath(string.Empty, null, filePath);
+			this.PackageTransformer.ValidateFilePath(string.Empty, string.Empty, filePath);
+			this.PackageTransformer.ValidateFilePath(null, "Test", filePath);
+			this.PackageTransformer.ValidateFilePath("Test", null, filePath);
+			this.PackageTransformer.ValidateFilePath("Test", "Test", filePath);
 
 			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{
-				this.Example.ValidateFilePath("Test", @"C:\Some-directory", filePath);
+				this.PackageTransformer.ValidateFilePath("Test", @"C:\Some-directory", filePath);
 			}
 		}
 
