@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace PrerequisiteTests
 {
 	public class EnvironmentTest
@@ -9,7 +11,7 @@ namespace PrerequisiteTests
 		{
 			await Task.CompletedTask;
 
-			Assert.Equal("\r\n", Environment.NewLine);
+			Assert.Equal(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\r\n" : "\n", Environment.NewLine);
 		}
 
 		#endregion
